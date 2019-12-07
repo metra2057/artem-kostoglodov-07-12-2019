@@ -1,7 +1,7 @@
 import { Theme } from './symbols';
 
 export const LightTheme: Theme = {
-  name: "violet",
+  name: "light",
   properties: {
     "--accent-bg-color": "155, 155, 155",
   },
