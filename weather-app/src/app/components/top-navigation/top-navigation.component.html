@@ -1,0 +1,26 @@
+<header class="header">
+  <a class="header__logo _accent-font-color" routerLink="/home">Herolo Weather Task</a>
+
+  <nav class="header__nav">
+    <button class="header__nav-item _accent-font-color" mat-button color="accent" routerLink="home">
+      Home
+      <mat-icon aria-hidden="false" aria-label="Home page">home</mat-icon>
+    </button>
+
+    <button class="header__nav-item _accent-font-color" mat-button color="accent" routerLink="favorites">
+      Favorites
+      <mat-icon aria-hidden="false" aria-label="Home page">favorite_border</mat-icon>
+    </button>
+
+    <button class="header__nav-item _accent-font-color" mat-button color="accent" [matMenuTriggerFor]="menu">
+      <mat-icon aria-hidden="false" aria-label="Home page">settings_applications</mat-icon>
+
+      <mat-menu #menu="matMenu">
+        <button class="_accent-font-color" mat-menu-item>
+          Theme
+          <mat-icon aria-hidden="false">invert_colors</mat-icon>
+        </button>
+      </mat-menu>
+    </button>
+  </nav>
+</header>

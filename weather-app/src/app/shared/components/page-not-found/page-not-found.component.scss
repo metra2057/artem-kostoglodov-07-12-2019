@@ -1,0 +1,17 @@
+.not-found {
+  height: calc(100% - 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__title {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  &__code {
+    font-size: 78px;
+  }
+}

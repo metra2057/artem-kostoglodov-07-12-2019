@@ -1,1 +1,25 @@
 @import "./assets/css/reset.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body {
+  min-height: 100%;
+  height: 1px;
+}
+
+body {
+  font-size: 14px;
+  min-width: 320px;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+._accent-bg-color {
+  background-color: rgba(var(--accent-bg-color), 1) !important;
+}
+
+._accent-font-color {
+  color: rgba(var(--accent-bg-color), 1) !important;
+}
