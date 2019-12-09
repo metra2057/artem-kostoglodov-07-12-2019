@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { ThemeModule } from './shared/theme/theme.module';
 import { LightTheme } from './shared/theme/light-theme';
-import { DarkTheme } from './shared/theme/dark-theme';
+import { BlueTheme } from './shared/theme/dark-theme';
 import { TopNavigationComponent } from './components/top-navigation/top-navigation.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +29,7 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
     BrowserModule,
     AppRoutingModule,
     ThemeModule.forRoot({
-      themes: [DarkTheme, LightTheme],
+      themes: [BlueTheme, LightTheme],
       active: 'light'
     }),
     BrowserAnimationsModule,

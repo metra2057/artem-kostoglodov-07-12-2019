@@ -16,7 +16,7 @@
       <mat-icon aria-hidden="false" aria-label="Home page">settings_applications</mat-icon>
 
       <mat-menu #menu="matMenu">
-        <button class="_accent-font-color" mat-menu-item>
+        <button class="_accent-font-color" mat-menu-item (click)="handleSwitchTheme()">
           Theme
           <mat-icon aria-hidden="false">invert_colors</mat-icon>
         </button>

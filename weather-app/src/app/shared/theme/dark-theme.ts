@@ -1,8 +1,8 @@
 import { Theme } from './symbols';
 
-export const DarkTheme: Theme = {
-  name: "dark",
+export const BlueTheme: Theme = {
+  name: "blue",
   properties: {
-    "--accent-bg-color": "142, 126, 207",
+    "--accent-bg-color": "rgb(40, 159, 219)",
   }
 };
