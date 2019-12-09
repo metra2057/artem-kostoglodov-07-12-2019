@@ -41,16 +41,11 @@ export class ThemeService {
     this.themes.push(theme);
   }
 
-  updateTheme(name: string, properties: { [key: string]: string; }) {
-    const theme = this.getTheme(name);
-    theme.properties = {
-      ...theme.properties,
-      ...properties
-    };
-
-    if (name === this.theme) {
-      this.themeChange.emit(theme);
-    }
+  switchTheme() {
+    const atciveThemeName = this.getActiveTheme();
+    const isLightThemeActive = atciveThemeName.name.toLowerCase() === 'light';
+    const themeName = isLightThemeActive ? 'blue' : 'light';
+    
+    this.setTheme(themeName);
   }
-
 }
