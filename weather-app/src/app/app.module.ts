@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
+import { PreloaderComponent } from './shared/components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
     TopNavigationComponent,
     HomeComponent,
     PageNotFoundComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,

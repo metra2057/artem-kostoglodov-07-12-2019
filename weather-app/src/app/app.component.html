@@ -2,4 +2,6 @@
   <app-top-navigation></app-top-navigation>
 </div>
 
+<app-preloader *ngIf="!isLoad"></app-preloader>
+
 <router-outlet></router-outlet>
