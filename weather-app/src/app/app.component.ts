@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppLoadStateService } from './services/app-load-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'weather-app';
+export class AppComponent implements OnInit {
+  private subscribtion = new Subscription();
+  isLoad: boolean;
+
+  constructor(private apploadStateService: AppLoadStateService) {
+    this.subscribtion.add(
+      this.apploadStateService.appLoading.subscribe(state => this.isLoad = state)
+    );
+  }
+  
+  ngOnInit() {
+    setTimeout(() => {
+      this.apploadStateService.updateLoadState(true);
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.subscribtion) {
+      this.subscribtion.unsubscribe();
+    }
+  }
 }
