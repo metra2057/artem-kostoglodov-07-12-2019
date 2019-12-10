@@ -14,9 +14,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { PreloaderComponent } from './shared/components/preloader/preloader.component';
+import { AppSearchComponent } from './components/app-search/app-search.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { PreloaderComponent } from './shared/components/preloader/preloader.comp
     HomeComponent,
     PageNotFoundComponent,
     FavoritesComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    AppSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { PreloaderComponent } from './shared/components/preloader/preloader.comp
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

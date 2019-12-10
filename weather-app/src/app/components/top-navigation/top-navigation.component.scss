@@ -13,5 +13,13 @@
 
   &__nav {
     display: flex;
+
+    &-item {
+      color: rgba(var(--accent-bg-color), 1);
+      &--active {
+        color: #fff;
+        background: rgba(var(--accent-bg-color), 1);
+      }
+    }
   }
 }
