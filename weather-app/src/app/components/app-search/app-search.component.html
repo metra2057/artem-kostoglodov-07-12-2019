@@ -1,27 +1,33 @@
 <div class="_container">
   <form class="search">
-    <input class="search__field" placeholder="City">
+    <input class="search__field" (keyup)="onKeyPress()" placeholder="City">
     <ul class="search__result">
-      <li class="search__result-item">
-        <button mat-button>City 1</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
-      <li class="search__result-item">
-        <button mat-button>City 2</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
-      <li class="search__result-item">
-        <button mat-button>City 3</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
-      <li class="search__result-item">
-        <button mat-button>City 4</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
-      <li class="search__result-item">
-        <button mat-button>City 5</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
-      <li class="search__result-item">
-        <button mat-button>City 6</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
-      <li class="search__result-item">
-        <button mat-button>City 7</button>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
+      </li>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
+      </li>
+      <li class="search__result-item" (click)="handleItemClick($event)">
+        City 1
       </li>
     </ul>
   </form>

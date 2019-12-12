@@ -16,12 +16,12 @@
     overflow: auto;
 
     &-item {
-      button {
-        padding: 10px;
-        display: block;
-        width: 100%;
-        text-align-last: left;
-      }
+      padding: 10px;
+      display: block;
+      width: 100%;
+      text-align-last: left;
+      box-sizing: border-box;
+      cursor: pointer;
     }
   }
 }

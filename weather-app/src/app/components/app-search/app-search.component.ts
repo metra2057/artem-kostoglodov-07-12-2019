@@ -12,4 +12,11 @@ export class AppSearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleItemClick(event) {
+    console.log(event);
+  }
+
+  onKeyPress() {
+    console.log(1);
+  }
 }

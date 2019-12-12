@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from 'src/app/shared/theme';
+import { ThemeService } from '../../services/theme.service';
+import { MainApiService } from '../../services/main-api.service';
 
 @Component({
   selector: 'app-top-navigation',
@@ -7,12 +8,13 @@ import { ThemeService } from 'src/app/shared/theme';
   styleUrls: ['./top-navigation.component.scss']
 })
 export class TopNavigationComponent implements OnInit {
-  constructor(private themeService: ThemeService) { }
+  constructor(private themeService: ThemeService, private mainApiService: MainApiService) { }
 
   ngOnInit() {
+
   }
   
   handleSwitchTheme() {
     this.themeService.switchTheme();
   }
-}
+  }
