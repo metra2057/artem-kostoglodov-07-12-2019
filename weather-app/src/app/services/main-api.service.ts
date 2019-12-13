@@ -8,7 +8,11 @@ import { ICity } from '../interfaces/city-interface';
 export class MainApiService {
   constructor(private httpSerice: HttpService) { }
 
-  getCities(data: any): Promise<ICity[]> {
+  getCities(name: string): Promise<ICity[]> {
+    const data = {
+      q: name
+    }
+
     return this.httpSerice.get(`locations/v1/cities/autocomplete`, data);
   }
 
