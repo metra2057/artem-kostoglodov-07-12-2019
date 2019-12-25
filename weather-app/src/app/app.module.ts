@@ -23,6 +23,15 @@ import { AppSearchComponent } from './components/app-search/app-search.component
 import { MainApiService } from './services/main-api.service';
 import { HttpService } from './services/http.service';
 
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { WeatherInfoComponent } from './components/weather-info/weather-info.component';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +41,7 @@ import { HttpService } from './services/http.service';
     FavoritesComponent,
     PreloaderComponent,
     AppSearchComponent,
+    WeatherInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,18 +49,23 @@ import { HttpService } from './services/http.service';
     HttpClientModule,
     ThemeModule.forRoot({
       themes: [BlueTheme, LightTheme],
-      active: 'light'
+      active: 'blue'
     }),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    PerfectScrollbarModule,
   ],
   providers: [
     HttpService,
-    MainApiService
+    MainApiService,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ],
   bootstrap: [AppComponent]
 })

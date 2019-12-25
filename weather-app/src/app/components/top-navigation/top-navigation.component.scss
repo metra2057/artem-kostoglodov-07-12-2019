@@ -9,16 +9,25 @@
     font-size: 17px;
     font-weight: 500;
     text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    span {
+      padding-right: 10px;
+    }
   }
 
   &__nav {
     display: flex;
 
     &-item {
-      color: rgba(var(--accent-bg-color), 1);
+      color: #fff;
       &--active {
         color: #fff;
         background: rgba(var(--accent-bg-color), 1);
+      }
+      &--settings {
+        color: #fff; 
       }
     }
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -14,21 +14,14 @@ export class HttpService {
 
   get(path: string, data: any = null): Promise<any> {
     const payload = this.convertQueryParams({
-      apiKey: this.apiKey, 
+      apikey: this.apiKey, 
       ...data,
     });
 
-    return this.http.get(`${this.apiUrl}/${path}?${payload}`, {headers: this.setHeaders()}).toPromise()
+    return this.http.get(`${this.apiUrl}/${path}?${payload}`).toPromise()
       .catch(error => console.error(error));
   }
 
-  private setHeaders() {
-    const CONFIG = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8'
-    });
-
-    return CONFIG;
-  }
   /**
    * @summary Convert query params
   */
