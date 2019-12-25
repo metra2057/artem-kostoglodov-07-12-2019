@@ -1,8 +1,12 @@
 <div class="_container">
   <form class="search">
-    <input class="search__field" (keyup)="onKeyPress($event)" placeholder="Search">
-    <ul class="search__result">
+    <div class="search-wrap">
+      <input class="search__field" (keyup)="onKeyPress($event)" placeholder="Search">
+      <i class="search__icon material-icons">search</i>
+    </div>
+    <ul *ngIf="searchResult.length" class="search__result" perfectScrollbar>
       <li *ngFor="let item of searchResult" class="search__result-item" (click)="handleItemClick(item)">
+        {{ item.Country.LocalizedName }}: 
         {{ item.LocalizedName }}
       </li>
     </ul>

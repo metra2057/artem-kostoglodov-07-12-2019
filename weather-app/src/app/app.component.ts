@@ -17,10 +17,7 @@ export class AppComponent implements OnInit {
     );
   }
   
-  ngOnInit() {
-    setTimeout(() => {
-      this.apploadStateService.updateLoadState(true);
-    }, 1000);
+  ngOnInit() {;
   }
 
   ngOnDestroy() {
