@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainApiService } from '../../../app/services/main-api.service';
 import { environment } from '../../../environments/environment';
-import { ICity } from '../../../app/interfaces/city-interface';
+import { ICity } from '../../shared/interfaces/city-interface';
 import { AppLoadStateService } from 'src/app/services/app-load-state.service';
 import { WeatherDataStateService } from 'src/app/services/weather-data-state.service';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   private defaultCityName = environment.defaultSearchVal;
 
   constructor(
-    private mainApiService: MainApiService, 
+    private mainApiService: MainApiService,
     private apploadStateService: AppLoadStateService,
     private weatherDataStateService: WeatherDataStateService,
   ) { }
@@ -50,4 +50,4 @@ export class HomeComponent implements OnInit {
     return this.mainApiService.getFullWeatherByLocationKey(locationKey)
       .then(res => res);
   }
-} 
+}

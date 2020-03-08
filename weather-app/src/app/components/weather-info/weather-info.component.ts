@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, ɵConsole } from '@angular/core';
-import { ICity } from '../../../app/interfaces/city-interface';
+import { ICity } from '../../shared/interfaces/city-interface';
 import { WeatherDataStateService } from '../../../app/services/weather-data-state.service';
 import { Subscription } from 'rxjs';
 import { MainApiService } from '../../../app/services/main-api.service';

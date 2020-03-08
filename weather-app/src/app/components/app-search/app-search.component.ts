@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ICity } from '../../../app/interfaces/city-interface';
+import { ICity } from '../../shared/interfaces/city-interface';
 import { MainApiService } from '../../../app/services/main-api.service';
 
 @Component({
