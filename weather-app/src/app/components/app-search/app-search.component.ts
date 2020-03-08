@@ -9,9 +9,13 @@ import { MainApiService } from '../../../app/services/main-api.service';
 })
 export class AppSearchComponent implements OnInit {
   @Output() emitItemClick = new EventEmitter<ICity>();
+
+  inputVal: string = '';
   searchResult: ICity[] = [];
 
-  constructor(private mainApiService: MainApiService) { }
+  constructor(
+    private mainApiService: MainApiService,
+  ) { }
 
   ngOnInit() {
   }
@@ -21,13 +25,17 @@ export class AppSearchComponent implements OnInit {
     this.searchResult = [];
   }
 
-  onKeyPress(event) {
-    const value = event.target.value;
-    if (!value.length) {
+  onKeyPress() {
+    if (!this.inputVal || !this.inputVal.length) {
       return this.searchResult = [];
     }
 
-    this.mainApiService.getCities(value).then(res => this.searchResult = res);
+    this.mainApiService.getCities(this.inputVal).then(res => {
+      if (res) {
+        this.searchResult = res;
+      }
+    })
+    .catch(err => console.error(err));
 
   }
 }

@@ -30,3 +30,37 @@ a {
   max-width: 1170px;
   margin: 0 auto;
 }
+
+/* Icons */
+/* SUNNY */
+.sunny { 
+	animation: sunny 15s linear infinite;
+	background: linear-gradient(0 deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%); 
+	width: 100%; 
+	max-height: 100%;
+}
+
+.sunny:before {
+	background: linear-gradient(0 deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+	content: ''; 
+	height: inherit; 
+	width: inherit;
+	opacity: 1; 
+	position: absolute;
+	bottom: 0px;
+	left: 0px; 
+	transform: rotate(90deg);
+}
+
+.sunny:after {
+	background: #FFEE44; 
+	border-radius: 50%; 
+	box-shadow: rgba(255,255,0,0.2) 0 0 0 15px;
+	content: '';  
+	height: 80px;
+	width: 80px;  
+	position: absolute; 
+	left: 50%; 
+  top: 50%;
+  transform: translate(-50%);
+}

@@ -1,6 +1,27 @@
-<div class="_container">
-  <div *ngIf="cityData" class="weather-info">
-    <h4 class="weather-info__city-name">{{ cityData.LocalizedName}}</h4>
+<div *ngIf="cityData && weatherData" class="_container">
+  <div class="weather-info">
+    <h4 class="weather-info__city-name">{{ cityData.LocalizedName }}</h4>
     
+    <ul class="weather-info__list">
+      <li *ngFor="let item of weatherData.DailyForecasts" class="weather-info__list-item">
+        <span class="weather-info__date">{{ item.Date | date }}</span>
+        <span class="weather-info__month-name"></span>
+        <span class="weather-info__day-icon">
+          <img src="{{ getIcon(item.Day.Icon) }}" alt="">
+        </span>
+        <div class="weather-info__temperature">
+          <span>Min:
+            {{ item.Temperature.Minimum.Value | number: '1.0-0'}}
+            °
+            {{ item.Temperature.Maximum.Unit }}
+          </span>
+          <span>Max:
+            {{ item.Temperature.Maximum.Value | number: '1.0-0'}}
+            °
+            {{ item.Temperature.Maximum.Unit }}
+          </span>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

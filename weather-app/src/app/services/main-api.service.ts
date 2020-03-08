@@ -8,7 +8,7 @@ import { ICity } from '../interfaces/city-interface';
 export class MainApiService {
   constructor(private httpSerice: HttpService) { }
 
-  getCities(name: string): Promise<ICity[]> {
+  public getCities(name: string): Promise<ICity[]> {
     const data = {
       q: name
     }
@@ -16,7 +16,7 @@ export class MainApiService {
     return this.httpSerice.get(`locations/v1/cities/autocomplete`, data);
   }
 
-  getFullWeatherByLocationKey(locationKey: string, details: boolean = true, metric: boolean = true) {
+  public getFullWeatherByLocationKey(locationKey: string, details: boolean = true, metric: boolean = true) {
     const data = {
       details: details,
       metric: metric
@@ -25,11 +25,17 @@ export class MainApiService {
     return this.httpSerice.get(`forecasts/v1/daily/5day/${locationKey}`, data);
   }
 
-  getCurrentWeatherConditions(locationKey: string, details: boolean = true) {
+  public getCurrentWeatherConditions(locationKey: string, details: boolean = true) {
     const data = {
       details: details
     }
 
     return this.httpSerice.get(`currentconditions/v1/${locationKey}`, data);
+  }
+
+  public getIcon(id: number) {
+    const iconId = id < 10 ? '0' + id.toString() : id.toString();
+
+    return `https://uds-static.api.aero/weather/icon/sm/${iconId}.png`;
   }
 }

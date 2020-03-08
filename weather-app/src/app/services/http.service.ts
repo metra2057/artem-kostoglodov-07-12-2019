@@ -10,11 +10,12 @@ export class HttpService {
   private readonly apiUrl = environment.apiUrl;
   private readonly apiKey = environment.apiKey;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+  }
 
-  get(path: string, data: any = null): Promise<any> {
+  public get(path: string, data: any = null): Promise<any> {
     const payload = this.convertQueryParams({
-      apikey: this.apiKey, 
+      apikey: this.apiKey,
       ...data,
     });
 
@@ -24,7 +25,7 @@ export class HttpService {
 
   /**
    * @summary Convert query params
-  */
+   */
   private convertQueryParams(params: any) {
     if (params) {
       let query = new HttpParams();

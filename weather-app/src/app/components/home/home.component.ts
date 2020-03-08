@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainApiService } from '../../../app/services/main-api.service';
 import { environment } from '../../../environments/environment';
 import { ICity } from '../../../app/interfaces/city-interface';
 import { AppLoadStateService } from 'src/app/services/app-load-state.service';
+import { WeatherDataStateService } from 'src/app/services/weather-data-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,21 +13,22 @@ import { AppLoadStateService } from 'src/app/services/app-load-state.service';
 })
 export class HomeComponent implements OnInit {
   private defaultCityName = environment.defaultSearchVal;
-  data: ICity[] = [];
-  weatherData: any;
-  cityData: ICity;
 
-  constructor(private mainApiService: MainApiService, private apploadStateService: AppLoadStateService) { }
+  constructor(
+    private mainApiService: MainApiService, 
+    private apploadStateService: AppLoadStateService,
+    private weatherDataStateService: WeatherDataStateService,
+  ) { }
 
   ngOnInit() {
     this.initData();
   }
 
-  onSearch(event: ICity) {
+  onSearch(cData: ICity) {
     // GET Daily 5 days forecast.
-    this.getWeatherData(event.Key).then(res => {
-      this.cityData = event;
-      this.weatherData = res;
+    this.getWeatherData(cData.Key).then(res => {
+      this.weatherDataStateService.reduceCityData(cData);
+      this.weatherDataStateService.reduceWeatherData(res);
     });
   }
 
@@ -33,7 +36,8 @@ export class HomeComponent implements OnInit {
     const defaultCity = await this.getCity(this.defaultCityName);
     const weatherData = await this.getWeatherData(defaultCity[0].Key);
 
-    this.weatherData = weatherData;
+    this.weatherDataStateService.reduceCityData(defaultCity);
+    this.weatherDataStateService.reduceWeatherData(weatherData);
     this.apploadStateService.updateLoadState(true);
   }
 
