@@ -1,8 +1,11 @@
-<div *ngIf="cityData && weatherData" class="_container">
+<div *ngIf="cityData" class="_container">
   <div class="weather-info">
-    <h4 class="weather-info__city-name">{{ cityData.LocalizedName }}</h4>
-    
-    <ul class="weather-info__list">
+    <h4 class="weather-info__city-name">
+      <span class="weather-info__city-name-label">Weather in</span>
+      {{ cityData.LocalizedName }}
+    </h4>
+
+    <ul *ngIf="weatherData" class="weather-info__list">
       <li *ngFor="let item of weatherData.DailyForecasts" class="weather-info__list-item">
         <span class="weather-info__date">{{ item.Date | date }}</span>
         <span class="weather-info__month-name"></span>

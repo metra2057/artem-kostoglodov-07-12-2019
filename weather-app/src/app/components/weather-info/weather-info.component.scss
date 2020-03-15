@@ -1,7 +1,15 @@
 .weather-info {
+  padding: 50px 20px;
   &__city-name {
-     color: #fff;
-     font-size: 28px; 
+    color: #000;
+    font-size: 28px;
+    background: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 4px 10px;
+    &-label {
+      opacity: .7;
+    }
   }
 
   &__list {
@@ -24,6 +32,14 @@
         transform: scale(1.1);
         transition: transform .2s ease-in-out;
       }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 
@@ -37,7 +53,7 @@
   &__month-name {
     padding: 10px;
     display: block;
-    text-align: center; 
+    text-align: center;
   }
 
   &__temperature {

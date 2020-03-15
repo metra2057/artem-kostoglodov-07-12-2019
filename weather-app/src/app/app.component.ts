@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppLoadStateService } from './services/app-load-state.service';
 import { Subscription } from 'rxjs';
 
@@ -7,22 +7,22 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  private subscribtion = new Subscription();
+export class AppComponent implements OnInit, OnDestroy {
+  private subscription = new Subscription();
   isLoad: boolean;
 
-  constructor(private apploadStateService: AppLoadStateService) {
-    this.subscribtion.add(
-      this.apploadStateService.appLoading.subscribe(state => this.isLoad = state)
+  constructor(private appLoadStateService: AppLoadStateService) {
+    this.subscription.add(
+      this.appLoadStateService.appLoading.subscribe(state => this.isLoad = state)
     );
   }
-  
-  ngOnInit() {;
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {
-    if (this.subscribtion) {
-      this.subscribtion.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

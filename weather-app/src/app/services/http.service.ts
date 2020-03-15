@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,20 @@ export class HttpService {
   constructor(public http: HttpClient) {
   }
 
-  public get(path: string, data: any = null): Promise<any> {
+  /**
+   * @summary: Get data from server.
+   */
+  public get(path: string, data: any = null) {
     const payload = this.convertQueryParams({
       apikey: this.apiKey,
       ...data,
     });
 
-    return this.http.get(`${this.apiUrl}/${path}?${payload}`).toPromise()
-      .catch(error => console.error(error));
+    return this.http.get(`${this.apiUrl}/${path}?${payload}`);
   }
 
   /**
-   * @summary Convert query params
+   * @summary: Convert query params.
    */
   private convertQueryParams(params: any) {
     if (params) {

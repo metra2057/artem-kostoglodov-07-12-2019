@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ICity } from '../../shared/interfaces/city-interface';
+import { ICity } from '../../shared/interfaces/city.interface';
 import { MainApiService } from '../../../app/services/main-api.service';
 
 @Component({
@@ -30,12 +30,10 @@ export class AppSearchComponent implements OnInit {
       return this.searchResult = [];
     }
 
-    this.mainApiService.getCities(this.inputVal).then(res => {
+    this.mainApiService.getCities({q: this.inputVal }).subscribe((res: ICity[]) => {
       if (res) {
         this.searchResult = res;
       }
-    })
-    .catch(err => console.error(err));
-
+    });
   }
 }

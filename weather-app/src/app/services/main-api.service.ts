@@ -1,36 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { ICity } from '../shared/interfaces/city-interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainApiService {
-  constructor(private httpSerice: HttpService) { }
+  constructor(private httpService: HttpService) { }
 
-  public getCities(name: string): Promise<ICity[]> {
-    const data = {
-      q: name
-    }
-
-    return this.httpSerice.get(`locations/v1/cities/autocomplete`, data);
+  public getCities(data: any) {
+    return this.httpService.get(`locations/v1/cities/autocomplete`, data);
   }
 
-  public getFullWeatherByLocationKey(locationKey: string, details: boolean = true, metric: boolean = true) {
+  public getFullWeatherByLocationKey(locationKey: {name: string}, details: boolean = true, metric: boolean = true) {
     const data = {
-      details: details,
-      metric: metric
+      details,
+      metric
     }
 
-    return this.httpSerice.get(`forecasts/v1/daily/5day/${locationKey}`, data);
+    return this.httpService.get(`forecasts/v1/daily/5day/${locationKey.name}`, data);
   }
 
   public getCurrentWeatherConditions(locationKey: string, details: boolean = true) {
     const data = {
-      details: details
+      details
     }
 
-    return this.httpSerice.get(`currentconditions/v1/${locationKey}`, data);
+    return this.httpService.get(`currentconditions/v1/${locationKey}`, data);
   }
 
   public getIcon(id: number) {

@@ -1,53 +1,56 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MainApiService } from '../../../app/services/main-api.service';
-import { environment } from '../../../environments/environment';
-import { ICity } from '../../shared/interfaces/city-interface';
-import { AppLoadStateService } from 'src/app/services/app-load-state.service';
-import { WeatherDataStateService } from 'src/app/services/weather-data-state.service';
-import { Subscription } from 'rxjs';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {MainApiService} from '../../../app/services/main-api.service';
+import {environment} from '../../../environments/environment';
+import {ICity} from '../../shared/interfaces/city.interface';
+import {AppLoadStateService} from 'src/app/services/app-load-state.service';
+import {WeatherDataStateService} from 'src/app/services/weather-data-state.service';
+import {ICitiesState} from '../../shared/store/reducers/cities.reducer';
+import {select, Store} from '@ngrx/store';
+import {GetCityDataAction, GetCityWeatherDataAction} from '../../shared/store/actions/city.actions';
+import {Observable, Subscription} from 'rxjs';
+import {selectCity, selectCityWeatherData} from '../../shared/store/selectors/cities.selectors';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private defaultCityName = environment.defaultSearchVal;
+  private subscription: Subscription = new Subscription();
+  public cityData$: Observable<ICity> = this.store$.pipe(select(selectCity));
+  public weatherData$: Observable<ICity> = this.store$.pipe(select(selectCityWeatherData));
 
   constructor(
     private mainApiService: MainApiService,
-    private apploadStateService: AppLoadStateService,
+    private appLoadStateService: AppLoadStateService,
     private weatherDataStateService: WeatherDataStateService,
-  ) { }
-
-  ngOnInit() {
-    this.initData();
+    private store$: Store<ICitiesState>
+  ) {
   }
 
-  onSearch(cData: ICity) {
-    // GET Daily 5 days forecast.
-    this.getWeatherData(cData.Key).then(res => {
-      this.weatherDataStateService.reduceCityData(cData);
-      this.weatherDataStateService.reduceWeatherData(res);
+  ngOnInit() {
+    this.store$.dispatch(new GetCityDataAction({q: this.defaultCityName}));
+    this.subscription.add(
+      this.cityData$.subscribe((res: ICity) => {
+        if (res && res.Key) {
+          this.store$.dispatch(new GetCityWeatherDataAction({name: res.Key}));
+        }
+      })
+    );
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.appLoadStateService.updateLoadState(true);
     });
   }
 
-  private async initData() {
-    const defaultCity = await this.getCity(this.defaultCityName);
-    const weatherData = await this.getWeatherData(defaultCity[0].Key);
-
-    this.weatherDataStateService.reduceCityData(defaultCity);
-    this.weatherDataStateService.reduceWeatherData(weatherData);
-    this.apploadStateService.updateLoadState(true);
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  private getCity(name: string) {
-    return this.mainApiService.getCities(name)
-      .then((res: ICity[]) => res);
-  }
-
-  private getWeatherData(locationKey: string) {
-    return this.mainApiService.getFullWeatherByLocationKey(locationKey)
-      .then(res => res);
+  public onSearch(cData: ICity) {
+    this.store$.dispatch(new GetCityWeatherDataAction({name: cData.Key}));
   }
 }
