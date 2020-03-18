@@ -7,7 +7,6 @@ export const GET_CITY_DATA_SUCCESS = 'GET_CITY_DATA_SUCCESS';
 export const GET_CITY_WEATHER_DATA = 'GET_CITY_WEATHER_DATA';
 export const GET_CITY_WEATHER_DATA_SUCCESS = 'GET_CITY_WEATHER_DATA_SUCCESS';
 
-
 export class GetCityDataAction implements Action {
   readonly type = GET_CITY_DATA;
 

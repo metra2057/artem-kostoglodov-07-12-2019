@@ -9,6 +9,9 @@ import {select, Store} from '@ngrx/store';
 import {GetCityDataAction, GetCityWeatherDataAction} from '../../shared/store/actions/city.actions';
 import {Observable, Subscription} from 'rxjs';
 import {selectCity, selectCityWeatherData} from '../../shared/store/selectors/cities.selectors';
+import {selectSearch} from '../../shared/store/selectors/search.selectors';
+import {GetSearchDataAction} from '../../shared/store/actions/search.actions';
+import {ISearchState} from '../../shared/store/reducers/search.reducer';
 
 @Component({
   selector: 'app-home',
@@ -20,12 +23,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   public cityData$: Observable<ICity> = this.store$.pipe(select(selectCity));
   public weatherData$: Observable<ICity> = this.store$.pipe(select(selectCityWeatherData));
+  public searchList$: Observable<ICity> = this.store$.pipe(select(selectSearch));
 
   constructor(
     private mainApiService: MainApiService,
     private appLoadStateService: AppLoadStateService,
     private weatherDataStateService: WeatherDataStateService,
-    private store$: Store<ICitiesState>
+    private store$: Store<ICitiesState | ISearchState>
   ) {
   }
 
@@ -50,7 +54,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public onSearch(cData: ICity) {
+  public onSearchItemSelect(cData: ICity) {
+    this.store$.dispatch(new GetCityDataAction({q: cData.LocalizedName}));
     this.store$.dispatch(new GetCityWeatherDataAction({name: cData.Key}));
+  }
+
+  public onSearchValueUpdate(value: string) {
+    this.store$.dispatch(new GetSearchDataAction({q: value}));
   }
 }

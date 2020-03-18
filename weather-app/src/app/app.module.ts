@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ThemeModule } from './shared/theme/theme.module';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,11 +29,14 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { WeatherInfoComponent } from './components/weather-info/weather-info.component';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { CityEffects } from './shared/store/effects/city.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers, reducers } from './shared/store';
+import { CityEffects } from './shared/store/effects/city.effects';
+import { SearchEffects } from './shared/store/effects/search.effects';
+import { environment } from '../environments/environment';
+import { HttpInterceptorService } from './services/http-interceptor.service';
+import {ToastContainerModule, ToastrModule} from 'ngx-toastr';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -74,11 +77,18 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([CityEffects]),
+    EffectsModule.forRoot([CityEffects, SearchEffects]),
+    ToastrModule.forRoot(),
+    ToastContainerModule
   ],
   providers: [
     HttpService,
     MainApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

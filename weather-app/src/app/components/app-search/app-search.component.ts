@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ICity } from '../../shared/interfaces/city.interface';
-import { MainApiService } from '../../../app/services/main-api.service';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {ICity} from '../../shared/interfaces/city.interface';
 
 @Component({
   selector: 'app-search',
@@ -8,32 +7,23 @@ import { MainApiService } from '../../../app/services/main-api.service';
   styleUrls: ['./app-search.component.scss']
 })
 export class AppSearchComponent implements OnInit {
+  @Input() list: ICity[] = [];
   @Output() emitItemClick = new EventEmitter<ICity>();
+  @Output() emitInputValueUpdate: EventEmitter<string> = new EventEmitter<string>();
 
-  inputVal: string = '';
-  searchResult: ICity[] = [];
+  public inputVal = '';
 
-  constructor(
-    private mainApiService: MainApiService,
-  ) { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  handleItemClick(event: ICity) {
+  public handleItemClick(event: ICity) {
     this.emitItemClick.emit(event);
-    this.searchResult = [];
   }
 
-  onKeyPress() {
-    if (!this.inputVal || !this.inputVal.length) {
-      return this.searchResult = [];
-    }
-
-    this.mainApiService.getCities({q: this.inputVal }).subscribe((res: ICity[]) => {
-      if (res) {
-        this.searchResult = res;
-      }
-    });
+  public onModelChange() {
+    this.emitInputValueUpdate.emit(this.inputVal);
   }
 }

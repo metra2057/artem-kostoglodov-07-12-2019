@@ -1,27 +1,27 @@
 <div class="_container">
   <form class="search">
     <div class="search-wrap">
-      <input 
-        class="search__field" 
-        [(ngModel)]="inputVal" 
-        (keyup)="onKeyPress($event)" 
+      <input
+        class="search__field"
+        [(ngModel)]="inputVal"
+        (ngModelChange)="onModelChange()"
         placeholder="Search"
         name="search"
         autocomplete="off"
         >
       <i class="search__icon material-icons">search</i>
     </div>
-    <ul 
-      class="search__result" 
-      [class.search__result--empty]="!inputVal?.length && !searchResult.length" 
+    <ul
+      class="search__result"
+      [class.search__result--empty]="!inputVal.length && !list.length"
       perfectScrollbar>
-      <ng-container *ngIf="searchResult.length">
-        <li *ngFor="let item of searchResult" class="search__result-item" (click)="handleItemClick(item)">
-          {{ item.Country.LocalizedName }}: 
+      <ng-container *ngIf="list.length">
+        <li *ngFor="let item of list" class="search__result-item" (click)="handleItemClick(item)">
+          {{ item.Country.LocalizedName }}:
           {{ item.LocalizedName }}
         </li>
       </ng-container>
-      <span *ngIf="inputVal.length > 0 && !searchResult.length">Nothing to found...</span>
+      <span *ngIf="inputVal.length > 0 && !list.length">Nothing to found...</span>
     </ul>
   </form>
 </div>

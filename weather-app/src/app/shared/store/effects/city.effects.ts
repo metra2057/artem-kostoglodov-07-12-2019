@@ -31,9 +31,7 @@ export class CityEffects {
   @Effect() getCityWeatherData$: Observable<Action> = this.actions$.pipe(
     ofType(GET_CITY_WEATHER_DATA),
     mergeMap((action: GetCityWeatherDataAction) => this.mainApiService.getFullWeatherByLocationKey(action.payload).pipe(
-      map(payload => {
-        return ({type: GET_CITY_WEATHER_DATA_SUCCESS, payload})
-      })
+      map(payload => ({type: GET_CITY_WEATHER_DATA_SUCCESS, payload}))
     ))
   );
 }

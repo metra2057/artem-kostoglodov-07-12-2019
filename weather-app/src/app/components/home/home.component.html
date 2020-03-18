@@ -1,5 +1,8 @@
 <div class="home">
-  <app-search (emitItemClick)="onSearch($event)"></app-search>
+  <app-search
+    [list]="searchList$ | async"
+    (emitItemClick)="onSearchItemSelect($event)"
+    (emitInputValueUpdate)="onSearchValueUpdate($event)"></app-search>
 
   <app-weather-info [cityData]="cityData$ | async" [weatherData]="weatherData$ | async"></app-weather-info>
 </div>
