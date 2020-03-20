@@ -1,30 +1,24 @@
 <div *ngIf="cityData" class="_container">
   <div class="weather-info">
-    <h4 class="weather-info__city-name">
-      <span class="weather-info__city-name-label">Weather in</span>
-      {{ cityData.LocalizedName }}
-    </h4>
+    <div class="weather-info__heading">
+      <span class="weather-info__heading-item date-info">{{ getMonth() }}, {{ getYear() }}</span>
+      <h4 *ngIf="cityData.LocalizedName" class="weather-info__heading-item weather-info__city-name">
+        <span class="weather-info__city-name-label">Weather in</span>
+        {{ cityData.LocalizedName }}
+      </h4>
+      <button class="weather-info__heading-item control-item button" mat-button (click)="toggleFavorite()" 
+        title="{{ !isFavorite ? 'Add to favorites' : 'Remove from favorites'}}">
+        <i *ngIf="isFavorite" class="search__icon material-icons">turned_in</i>
+        <i *ngIf="!isFavorite" class="search__icon material-icons">add</i>
+      </button>
+    </div>
 
-    <ul *ngIf="weatherData" class="weather-info__list">
-      <li *ngFor="let item of weatherData.DailyForecasts" class="weather-info__list-item">
-        <span class="weather-info__date">{{ item.Date | date }}</span>
-        <span class="weather-info__month-name"></span>
-        <span class="weather-info__day-icon">
-          <img src="{{ getIcon(item.Day.Icon) }}" alt="">
-        </span>
-        <div class="weather-info__temperature">
-          <span>Min:
-            {{ item.Temperature.Minimum.Value | number: '1.0-0'}}
-            °
-            {{ item.Temperature.Maximum.Unit }}
-          </span>
-          <span>Max:
-            {{ item.Temperature.Maximum.Value | number: '1.0-0'}}
-            °
-            {{ item.Temperature.Maximum.Unit }}
-          </span>
-        </div>
-      </li>
-    </ul>
+    <app-weather-info-list 
+      *ngIf="weatherData" 
+      [list]="weatherData.DailyForecasts"
+      (emitListItemClick)="handleListItemCLick($event)">
+    </app-weather-info-list>
+
+    <app-weather-info-full-card *ngIf="isFullInformationCardOpen"></app-weather-info-full-card>
   </div>
 </div>

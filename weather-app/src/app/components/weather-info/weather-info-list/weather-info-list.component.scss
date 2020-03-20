@@ -1,0 +1,107 @@
+.weather-info {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  
+    &-item {
+      width: 100%;
+      max-width: calc((100% / 2) - 30px);
+      min-width: 171px;
+      background-color: #fff;
+      color: #000;
+      display: block;
+      margin: 15px;
+      border-radius: 5px;
+      transition: transform .2s ease-in-out;
+      padding: 21px;
+      box-sizing: border-box;
+      cursor: pointer;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #9A31E6;
+        transform: scale(0);
+      }
+      &--active {
+        @media screen and (min-width: 768px) {
+          transform: scale(1.1);
+          transition: transform .2s ease-in-out;
+        }
+        &::before {
+          transform: scale(1);
+        }
+      }
+      @media screen and (min-width: 576px) {
+        max-width: calc((100% / 3) - 30px);
+      }
+      @media screen and (min-width: 992px) {
+        max-width: calc((100% / 5) - 30px);
+      }
+    }
+  }
+
+  &__center-box {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-around;
+    &-value {
+      font-size: 22px;
+      letter-spacing: -2px;
+    }
+    &-symbol {
+      font-size: 28px;  
+    }
+  }
+
+  &__date {
+    font-size: 19px;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    background-color: #9A31E6;
+    border-radius: 5px;
+    padding: 4px;
+    color: #fff;
+  }
+
+  &__month-name {
+    padding: 10px;
+    display: block;
+    text-align: center;
+  }
+
+  &__temperature {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  &__day-icon {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    max-width: 70px;
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &__phrase {
+    font-weight: 100;
+    line-height: 16px;
+    font-size: 14px;
+  }
+}
+
+

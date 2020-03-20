@@ -1,0 +1,36 @@
+<ul class="weather-info__list">
+  <li 
+    *ngFor="let item of list; let i = index" 
+    (click)="handleItemClick(item, i)" 
+    class="weather-info__list-item"
+    [class.weather-info__list-item--active]="i === activeItemId">
+    <span class="weather-info__date">{{ item.Date | date }}</span>
+    <div class="weather-info__center-box">
+      <span class="weather-info__day-icon">
+          <img src="{{ getIcon(item.Day.Icon) }}" alt="icon">
+      </span>
+      <span class="weather-info__center-box-value">
+          {{ getAverageTemperature(item) }} 
+          <span class="weather-info__center-box-symbol">°</span>
+          {{ item.Temperature.Maximum.Unit }}
+      </span>
+    </div>
+    <div class="weather-info__temperature">
+      <span>Min:
+          <span class="weather-info__temperature-value">
+          {{ item.Temperature.Minimum.Value | number: '1.0-0' }}
+          °
+          {{ item.Temperature.Maximum.Unit }}
+          </span>
+      </span>
+      <span>Max:
+          <span class="weather-info__temperature-value">
+          {{ item.Temperature.Maximum.Value | number: '1.0-0' }}
+          °
+          {{ item.Temperature.Maximum.Unit }}
+          </span>
+      </span>
+    </div>
+    <p class="weather-info__phrase">{{ item.Day.ShortPhrase }}</p>
+  </li>
+</ul>

@@ -28,9 +28,7 @@ export class MainApiService {
     return this.httpService.get(`currentconditions/v1/${locationKey}`, data);
   }
 
-  public getIcon(id: number) {
-    const iconId = id < 10 ? '0' + id.toString() : id.toString();
-
-    return `https://uds-static.api.aero/weather/icon/sm/${iconId}.png`;
+  public getIcon(id: number): string {
+    return `https://www.accuweather.com/images/weathericons/${id}.svg`;
   }
 }

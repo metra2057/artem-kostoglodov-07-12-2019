@@ -36,11 +36,9 @@ import { CityEffects } from './shared/store/effects/city.effects';
 import { SearchEffects } from './shared/store/effects/search.effects';
 import { environment } from '../environments/environment';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-import {ToastContainerModule, ToastrModule} from 'ngx-toastr';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
+import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
+import { WeatherInfoListComponent } from './components/weather-info/weather-info-list/weather-info-list.component';
+import { WeatherInfoFullCardComponent } from './components/weather-info/weather-info-full-card/weather-info-full-card.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +50,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PreloaderComponent,
     AppSearchComponent,
     WeatherInfoComponent,
+    WeatherInfoListComponent,
+    WeatherInfoFullCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +67,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatIconModule,
     MatMenuModule,
     MatCardModule,
-    PerfectScrollbarModule,
     FormsModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -88,10 +87,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    },
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
   bootstrap: [AppComponent]

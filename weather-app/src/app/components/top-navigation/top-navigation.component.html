@@ -16,13 +16,13 @@
         <mat-icon aria-hidden="false" aria-label="Home page">favorite_border</mat-icon>
       </button>
   
-      <button class="header__nav-item header__nav-item--settings" mat-button color="accent" [matMenuTriggerFor]="menu">
+      <button class="header__nav-item" mat-button color="accent" [matMenuTriggerFor]="menu">
         <mat-icon aria-hidden="false" aria-label="Home page">settings_applications</mat-icon>
   
-        <mat-menu #menu="matMenu">
+        <mat-menu #menu="matMenu" class="settings">
           <button class="_accent-font-color" mat-menu-item (click)="handleSwitchTheme()">
             Theme
-            <mat-icon aria-hidden="false">invert_colors</mat-icon>
+            <mat-icon aria-hidden="false" class="settings__icon">invert_colors</mat-icon>
           </button>
         </mat-menu>
       </button>

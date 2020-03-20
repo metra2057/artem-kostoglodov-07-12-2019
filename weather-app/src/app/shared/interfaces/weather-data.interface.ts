@@ -10,43 +10,7 @@ export interface IWeatherData {
     MobileLink: string;
     Link: string;
   };
-  DailyForecasts: {
-    Date: string;
-    EpochDate: number;
-    Sun: {
-      Rise: string;
-      EpochRise: number;
-      Set: string;
-      EpochSet: number;
-    };
-    Moon: {
-      Rise: string;
-      EpochRise: number;
-      Set: string;
-      EpochSet: number;
-      Phase: string;
-      Age: number;
-    };
-    Temperature: ITemperature;
-    RealFeelTemperature: ITemperature;
-    RealFeelTemperatureShade: ITemperature;
-    DegreeDaySummary: {
-      Heating: ITemperature;
-      Cooling: ITemperature;
-    };
-    AirAndPollen: {
-      Name: string;
-      Value: number;
-      Category: string;
-      CategoryValue: number;
-      Type: string;
-    } [];
-    Day: IDay;
-    Night: IDay;
-    Sources: string [];
-    MobileLink: string;
-    Link: string;
-  } [];
+  DailyForecasts: IDailyForecast [];
 }
 
 export interface ITemperature {
@@ -73,4 +37,42 @@ export interface IDay {
   RainProbability: number;
   SnowProbability: number;
   IceProbability: number;
+}
+
+export interface IDailyForecast {
+  Date: string;
+  EpochDate: number;
+  Sun: {
+    Rise: string;
+    EpochRise: number;
+    Set: string;
+    EpochSet: number;
+  };
+  Moon: {
+    Rise: string;
+    EpochRise: number;
+    Set: string;
+    EpochSet: number;
+    Phase: string;
+    Age: number;
+  };
+  Temperature: ITemperature;
+  RealFeelTemperature: ITemperature;
+  RealFeelTemperatureShade: ITemperature;
+  DegreeDaySummary: {
+    Heating: ITemperature;
+    Cooling: ITemperature;
+  };
+  AirAndPollen: {
+    Name: string;
+    Value: number;
+    Category: string;
+    CategoryValue: number;
+    Type: string;
+  } [];
+  Day: IDay;
+  Night: IDay;
+  Sources: string [];
+  MobileLink: string;
+  Link: string;
 }

@@ -1,6 +1,5 @@
 @import './assets/css/reset.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import '~perfect-scrollbar/css/perfect-scrollbar.css';
 @import '~ngx-toastr/toastr';
 
 html, body {
@@ -30,4 +29,14 @@ a {
   width: 100%;
   max-width: 1170px;
   margin: 0 auto;
+}
+
+button {
+  border: 0;
+}
+
+.button.mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button{
+  line-height: unset;
+  min-width: unset;
+  padding: unset;
 }

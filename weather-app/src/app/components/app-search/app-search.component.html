@@ -5,7 +5,7 @@
         class="search__field"
         [(ngModel)]="inputVal"
         (ngModelChange)="onModelChange()"
-        placeholder="Search"
+        placeholder="Search..."
         name="search"
         autocomplete="off"
         >
@@ -13,8 +13,7 @@
     </div>
     <ul
       class="search__result"
-      [class.search__result--empty]="!inputVal.length && !list.length"
-      perfectScrollbar>
+      [class.search__result--empty]="!inputVal.length && !list.length">
       <ng-container *ngIf="list.length">
         <li *ngFor="let item of list" class="search__result-item" (click)="handleItemClick(item)">
           {{ item.Country.LocalizedName }}:

@@ -12,6 +12,7 @@ import {selectCity, selectCityWeatherData} from '../../shared/store/selectors/ci
 import {selectSearch} from '../../shared/store/selectors/search.selectors';
 import {GetSearchDataAction} from '../../shared/store/actions/search.actions';
 import {ISearchState} from '../../shared/store/reducers/search.reducer';
+import { StubDataService } from 'src/app/services/stub-data.service';
 
 @Component({
   selector: 'app-home',
