@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ThemeModule } from './shared/theme/theme.module';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,14 +24,11 @@ import { AppSearchComponent } from './components/app-search/app-search.component
 import { MainApiService } from './services/main-api.service';
 import { HttpService } from './services/http.service';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { WeatherInfoComponent } from './components/weather-info/weather-info.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { metaReducers, reducers } from './shared/store';
+import { metaReducers, REDUCER_TOKEN, reducers } from './shared/store';
 import { CityEffects } from './shared/store/effects/city.effects';
 import { SearchEffects } from './shared/store/effects/search.effects';
 import { environment } from '../environments/environment';
@@ -39,6 +36,8 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { WeatherInfoListComponent } from './components/weather-info/weather-info-list/weather-info-list.component';
 import { WeatherInfoFullCardComponent } from './components/weather-info/weather-info-full-card/weather-info-full-card.component';
+import { LocalStorageService } from './services/local-storage.service';
+import { FavoritesListEffects } from './shared/store/effects/favorites.effects';
 
 @NgModule({
   declarations: [
@@ -68,7 +67,7 @@ import { WeatherInfoFullCardComponent } from './components/weather-info/weather-
     MatMenuModule,
     MatCardModule,
     FormsModule,
-    StoreModule.forRoot(reducers, {
+    StoreModule.forRoot(REDUCER_TOKEN, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
@@ -76,18 +75,24 @@ import { WeatherInfoFullCardComponent } from './components/weather-info/weather-
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([CityEffects, SearchEffects]),
+    EffectsModule.forRoot([CityEffects, SearchEffects, FavoritesListEffects]),
     ToastrModule.forRoot(),
     ToastContainerModule
   ],
   providers: [
     HttpService,
     MainApiService,
+    HttpInterceptorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    }
+    },
+    LocalStorageService,
+    {
+      provide: REDUCER_TOKEN,
+      useValue: reducers
+    },
   ],
   bootstrap: [AppComponent]
 })

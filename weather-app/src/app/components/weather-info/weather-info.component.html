@@ -6,19 +6,19 @@
         <span class="weather-info__city-name-label">Weather in</span>
         {{ cityData.LocalizedName }}
       </h4>
-      <button class="weather-info__heading-item control-item button" mat-button (click)="toggleFavorite()" 
+      <button class="weather-info__heading-item control-item button" mat-button (click)="toggleFavorite(cityData)"
         title="{{ !isFavorite ? 'Add to favorites' : 'Remove from favorites'}}">
         <i *ngIf="isFavorite" class="search__icon material-icons">turned_in</i>
         <i *ngIf="!isFavorite" class="search__icon material-icons">add</i>
       </button>
     </div>
 
-    <app-weather-info-list 
-      *ngIf="weatherData" 
+    <app-weather-info-list
+      *ngIf="weatherData"
       [list]="weatherData.DailyForecasts"
       (emitListItemClick)="handleListItemCLick($event)">
     </app-weather-info-list>
 
-    <app-weather-info-full-card *ngIf="isFullInformationCardOpen"></app-weather-info-full-card>
+    <app-weather-info-full-card *ngIf="isFullInformationCardOpen" [item]="dayWeatherData"></app-weather-info-full-card>
   </div>
 </div>

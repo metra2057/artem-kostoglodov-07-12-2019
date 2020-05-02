@@ -1,0 +1,26 @@
+.favorites {
+  padding: 0 20px;
+  display: block;
+  box-sizing: border-box;
+}
+
+.list {
+  border-radius: 5px;
+  background: rgba(155, 153, 173, 0.15);
+  &__item {
+    color: #fff;
+    padding: 12px;
+    display: block;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      background: rgba(155, 153, 173, 0.5);
+    }
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+  }
+}

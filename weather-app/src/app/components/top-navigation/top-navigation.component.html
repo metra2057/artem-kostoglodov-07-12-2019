@@ -1,24 +1,24 @@
 <div class="_container">
   <header class="header">
     <a class="header__logo" routerLink="/home">
-      <span>Web Weather App</span>
+      <span>Weather App</span>
       <i class="material-icons">beach_access</i>
     </a>
-  
+
     <nav class="header__nav">
       <button class="header__nav-item" mat-button color="accent" routerLink="home" routerLinkActive="header__nav-item--active">
         Home
         <mat-icon aria-hidden="false" aria-label="Home page">home</mat-icon>
       </button>
-  
+
       <button class="header__nav-item" mat-button color="accent" routerLink="favorites" routerLinkActive="header__nav-item--active">
         Favorites
         <mat-icon aria-hidden="false" aria-label="Home page">favorite_border</mat-icon>
       </button>
-  
+
       <button class="header__nav-item" mat-button color="accent" [matMenuTriggerFor]="menu">
         <mat-icon aria-hidden="false" aria-label="Home page">settings_applications</mat-icon>
-  
+
         <mat-menu #menu="matMenu" class="settings">
           <button class="_accent-font-color" mat-menu-item (click)="handleSwitchTheme()">
             Theme

@@ -1,3 +1,57 @@
 <div class="full-card">
-  <div class="full-card__body"></div>
+  <div class="full-card__body">
+    <span class="full-card__body-date">{{ item.Date | date }}</span>
+    <div class="full-card-item full-card__day">
+      <div class="full-card-item__heading">
+        <h6 class="full-card-item__type-of-day">Day</h6>
+
+        <div class="full-card-item__icon">
+          <img src="{{ getIconUrl(item.Day.Icon) }}" class="_responsive-img" title="{{ item.Day.IconPhrase }}">
+        </div>
+      </div>
+
+      <div class="full-card-item__info">
+        <p class="full-card-item__info-phrase">{{ item.Day.IconPhrase }}</p>
+        <ul class="indicators-list">
+          <li class="indicators-list__item">
+            Wind: {{ item.Day.Wind.Speed.Value }} {{ item.Day.Wind.Speed.Unit }}
+            | {{ getWindSpeedInMetersPerSecond(item.Day.Wind.Speed.Value) }} m/s
+          </li>
+          <li class="indicators-list__item">
+            Wind gust: {{ item.Day.WindGust.Speed.Value }} {{ item.Day.WindGust.Speed.Unit }}
+            | {{ getWindSpeedInMetersPerSecond(item.Day.WindGust.Speed.Value) }} m/s
+            <span *ngIf="item.Day.WindGust.Speed.Value >= 50.4" class="indicators-list__item-warning"><span class="material-icons indicators-list__item-warning-icon">warning</span>Strong</span>
+          </li>
+          <li class="indicators-list__item">Precipitation probability: {{ item.Day.PrecipitationProbability }}%</li>
+        </ul>
+      </div>
+    </div>
+    <span class="full-card__separator"></span>
+    <div class="full-card-item full-card__night">
+      <div class="full-card-item__heading">
+        <h6 class="full-card-item__type-of-day">Night</h6>
+
+        <div class="full-card-item__icon">
+          <img src="{{ getIconUrl(item.Night.Icon) }}" class="_responsive-img" title="{{ item.Day.IconPhrase }}">
+        </div>
+      </div>
+
+      <div class="full-card-item__info">
+        <p class="full-card-item__info-phrase">{{ item.Night.IconPhrase }}</p>
+
+        <ul class="indicators-list">
+          <li class="indicators-list__item">
+            Wind: {{ item.Night.Wind.Speed.Value }} {{ item.Night.Wind.Speed.Unit }}
+            | {{ getWindSpeedInMetersPerSecond(item.Night.Wind.Speed.Value) }} m/s
+          </li>
+          <li class="indicators-list__item">
+            Wind gust: {{ item.Night.WindGust.Speed.Value }} {{ item.Night.WindGust.Speed.Unit }}
+            | {{ getWindSpeedInMetersPerSecond(item.Night.WindGust.Speed.Value) }} m/s
+            <span *ngIf="item.Night.WindGust.Speed.Value >= 50.4" class="indicators-list__item-warning"><span class="material-icons indicators-list__item-warning-icon">warning</span>Strong</span>
+          </li>
+          <li class="indicators-list__item">Precipitation probability: {{ item.Night.PrecipitationProbability }}%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

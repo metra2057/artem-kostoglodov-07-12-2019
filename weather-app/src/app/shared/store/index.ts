@@ -1,22 +1,22 @@
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer
-} from '@ngrx/store';
-import {environment} from '../../../environments/environment';
-import {citiesKey, citiesReducer, ICitiesState} from './reducers/cities.reducer';
-import {searchKey, searchReducer, ISearchState} from './reducers/search.reducer';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { InjectionToken } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { citiesKey, citiesReducer, ICitiesState } from './reducers/cities.reducer';
+import { searchKey, searchReducer, ISearchState } from './reducers/search.reducer';
+import { favoritesListKey, favoritesListReducer, IFavoritesListState } from './reducers/favorites.reducer';
 
-export interface State {
+export interface IState {
   readonly [citiesKey]: ICitiesState;
   readonly [searchKey]: ISearchState;
+  readonly [favoritesListKey]: IFavoritesListState;
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<IState> = {
   [citiesKey]: citiesReducer,
-  [searchKey]: searchReducer
+  [searchKey]: searchReducer,
+  [favoritesListKey]: favoritesListReducer
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<IState>[] = !environment.production ? [] : [];
+
+export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<IState>>('root reducers');

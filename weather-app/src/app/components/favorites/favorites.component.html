@@ -1,1 +1,10 @@
-<p>favorites works!</p>
+<div class="_container favorites">
+  <ul class="list">
+    <li
+      *ngFor="let favorite of favoriteList | async"
+      (click)="onItemClick(favorite)"
+      class="list__item">
+      <span class="list__item-name">{{ favorite.LocalizedName }}</span>
+    </li>
+  </ul>
+</div>

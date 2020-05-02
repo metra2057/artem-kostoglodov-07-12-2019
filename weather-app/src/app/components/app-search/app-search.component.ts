@@ -19,11 +19,11 @@ export class AppSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  public handleItemClick(event: ICity) {
+  public handleItemClick(event: ICity): void {
     this.emitItemClick.emit(event);
   }
 
-  public onModelChange() {
+  public onModelChange(): void {
     this.emitInputValueUpdate.emit(this.inputVal);
   }
 }

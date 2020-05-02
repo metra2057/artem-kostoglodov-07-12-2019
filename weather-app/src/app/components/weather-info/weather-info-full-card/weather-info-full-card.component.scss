@@ -1,15 +1,101 @@
 .full-card {
   width: 100%;
-  height: 320px;
+  min-height: 320px;
   transform: translateY(-2px);
   padding: 0 15px;
   box-sizing: border-box;
+  position: relative;
   &__body {
     margin-top: 15px;
-    display: block;
     width: 100%;
-    height: 100%;    
+    height: 100%;
     background: #fff;
     border-radius: 5px;
+    align-items: center;
+    padding: 40px 20px 20px 20px;
+    box-sizing: border-box;
+    @media screen and (min-width: 640px) {
+      display: flex;
+    }
+    &-date {
+      white-space: nowrap;
+      top: 0;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #300D5D;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 24px;
+    }
+  }
+
+  &__separator {
+    height: 70%;
+    width: 1px;
+    display: block;
+    background: gray;
+    opacity: .4;
+  }
+
+  &-item {
+    height: 100%;
+    width: 100%;
+    margin-bottom: 20px;
+    @media screen and (min-width: 640px) {
+      width: 50%;
+    }
+    &__heading {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 50px;
+    }
+
+    &__type-of-day {
+      font-size: 42px;
+      font-weight: 200;
+    }
+
+    &__icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    &__info-phrase {
+      font-size: 14px;
+      color: #868686;
+    }
+  }
+
+  &__night {
+    @media screen and (min-width: 640px) {
+      padding-left: 20px;
+    }
+  }
+
+  &__day {
+    @media screen and (min-width: 640px) {
+      padding-right: 20px;
+    }
+  }
+
+  .indicators-list {
+    padding-top: 20px;
+    &__item {
+      display: flex;
+      line-height: 21px;
+      color: #868686;
+      &-warning {
+        margin-left: auto;
+        color: #FE900D;
+        display: flex;
+        align-items: center;
+        &-icon {
+          font-size: 14px;
+          padding-right: 4px;
+        }
+      }
+    }
   }
 }

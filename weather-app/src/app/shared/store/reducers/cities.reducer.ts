@@ -1,4 +1,4 @@
-import {ICity} from '../../interfaces/city.interface';
+import { ICity } from '../../interfaces/city.interface';
 import {
   CityDataActions,
   GET_CITY_DATA,
@@ -6,9 +6,7 @@ import {
   GET_CITY_WEATHER_DATA,
   GET_CITY_WEATHER_DATA_SUCCESS
 } from '../actions/city.actions';
-import {MCity} from '../../models/city.model';
-import {MWeatherData} from '../../models/weather-data.model';
-import {IDay, ITemperature, IWeatherData} from '../../interfaces/weather-data.interface';
+import { MCity } from '../../models/city.model';
 
 export const citiesKey = 'city';
 

@@ -14,20 +14,21 @@ export class WeatherInfoListComponent implements OnInit {
   @Output() emitListItemClick: EventEmitter<IItemClickEvent> = new EventEmitter<IItemClickEvent>();
 
   public activeItemId = -1;
+
   constructor(private apiService: MainApiService) { }
 
   ngOnInit() {
   }
 
-  public getIcon(id: number) {
+  public getIconUrl(id: number): string {
     return this.apiService.getIcon(id);
   }
 
-  public getAverageTemperature(item: IDailyForecast) {
+  public getAverageTemperature(item: IDailyForecast): number {
     return Math.round((Math.round(item.Temperature.Minimum.Value) + Math.round(item.Temperature.Maximum.Value)) / 2);
   }
 
-  public handleItemClick(item: IDailyForecast, id: number) {
+  public handleItemClick(item: IDailyForecast, id: number): void {
     this.emitListItemClick.emit({ item, id });
     this.activeItemId = this.activeItemId === id ? -1 : id;
   }

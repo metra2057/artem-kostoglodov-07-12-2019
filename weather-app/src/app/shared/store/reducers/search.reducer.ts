@@ -18,7 +18,6 @@ export const searchReducer = (state = initialState, action: SearchActions) => {
         ...state
       };
     case GET_SEARCH_DATA_SUCCESS:
-      console.log(1);
       return {
         ...state,
         searchResult: action.payload

@@ -4,5 +4,10 @@
     (emitItemClick)="onSearchItemSelect($event)"
     (emitInputValueUpdate)="onSearchValueUpdate($event)"></app-search>
 
-  <app-weather-info [cityData]="cityData$ | async" [weatherData]="weatherData$ | async"></app-weather-info>
+  <app-weather-info
+    [cityData]="cityData$ | async"
+    [weatherData]="weatherData$ | async"
+    [favoritesList]="favoritesList$ |async"
+    (emitAddFavoritesItem)="onAddFavoriteItem($event)"
+    (emitAddFavoritesItem)="onRemoveFavoriteItem($event)"></app-weather-info>
 </div>

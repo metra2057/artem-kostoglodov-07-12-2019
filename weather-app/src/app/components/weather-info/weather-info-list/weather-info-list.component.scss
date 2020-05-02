@@ -2,10 +2,10 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
-  
+
     &-item {
       width: 100%;
-      max-width: calc((100% / 2) - 30px);
+      max-width: 100%;
       min-width: 171px;
       background-color: #fff;
       color: #000;
@@ -38,7 +38,10 @@
           transform: scale(1);
         }
       }
-      @media screen and (min-width: 576px) {
+      @media screen and (min-width: 411px) {
+        max-width: calc((100% / 2) - 30px);
+      }
+      @media screen and (min-width: 640px) {
         max-width: calc((100% / 3) - 30px);
       }
       @media screen and (min-width: 992px) {
@@ -58,7 +61,7 @@
       letter-spacing: -2px;
     }
     &-symbol {
-      font-size: 28px;  
+      font-size: 28px;
     }
   }
 
