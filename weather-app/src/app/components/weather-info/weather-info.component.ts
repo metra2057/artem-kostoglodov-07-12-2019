@@ -18,8 +18,8 @@ export class WeatherInfoComponent implements OnInit, OnChanges {
   @Input()  cityData: ICity;
   @Input() weatherData: IWeatherData;
   @Input() favoritesList: IFavoriteCity [] = [];
-  @Output() emitAddFavoritesItem: EventEmitter<IFavoriteCity []> = new EventEmitter<IFavoriteCity []>();
-  @Output() emitRemoveFavoritesItem: EventEmitter<IFavoriteCity []> = new EventEmitter<IFavoriteCity []>();
+  @Output() emitAddFavoritesItem: EventEmitter<any> = new EventEmitter<any>();
+  @Output() emitRemoveFavoritesItem: EventEmitter<any> = new EventEmitter<any>();
 
   private itemId: number;
   private favorites: IFavoriteCity [] = [];
@@ -68,23 +68,11 @@ export class WeatherInfoComponent implements OnInit, OnChanges {
   }
 
   private addToFavorite(cityData: IFavoriteCity): void {
-    const {LocalizedName, Key} = cityData;
-    const favorite = {LocalizedName, Key};
-    const list: IFavoriteCity[] = Object.assign([], this.favoritesList);
-    const isValid = this.checkFavoritesFormat(list);
-    const hub: IFavoriteCity[] = [];
-
-    isValid ? list.push(favorite) : hub.push(favorite);
-
-    this.emitAddFavoritesItem.emit(isValid ? list : hub);
+    this.emitAddFavoritesItem.emit({item: cityData, list: this.favoritesList});
   }
 
   private removeItemFromFavorites(cityData: IFavoriteCity): void {
-    const {LocalizedName, Key} = cityData;
-    const favorites = Object.assign([], this.favoritesList);
-    const updated = favorites.filter((item: IFavoriteCity) => item.LocalizedName !== LocalizedName && item.Key !== Key);
-
-    this.emitAddFavoritesItem.emit(updated);
+    this.emitRemoveFavoritesItem.emit({item: cityData, list: this.favoritesList});
   }
 
   private checkFavoritesFormat(favorites): boolean {

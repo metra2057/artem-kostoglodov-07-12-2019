@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainApiService } from '../../../app/services/main-api.service';
 import { environment } from '../../../environments/environment';
 import { ICity } from '../../shared/interfaces/city.interface';
@@ -29,7 +29,7 @@ import { IWeatherData } from '../../shared/interfaces/weather-data.interface';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   private readonly defaultCityName = environment.defaultSearchVal;
   public readonly cityData$: Observable<ICity> = this.store$.pipe(select(selectCity));
@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         qParams = params;
         this.store$.dispatch(setActionParams(GET_CITY_DATA, {q: qParams.LocalizedName}));
         this.store$.dispatch(setActionParams(GET_CITY_WEATHER_DATA, {name: qParams.Key}));
+        this.appLoadStateService.updateLoadState(true);
       }));
 
     if (!qParams) {
@@ -70,14 +71,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           .pipe(filter(res => res && !!res.Key))
           .subscribe((res: ICity) => {
             this.store$.dispatch(setActionParams(GET_CITY_WEATHER_DATA, {name: res.Key}));
+            this.appLoadStateService.updateLoadState(true);
           }));
     }
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.appLoadStateService.updateLoadState(true);
-    });
   }
 
   ngOnDestroy(): void {
@@ -97,11 +93,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.store$.dispatch(setActionParams(GET_SEARCH_DATA, {q: value}));
   }
 
-  public onAddFavoriteItem(event: IFavoriteCity []): void {
-    this.store$.dispatch(setActionParams(ADD_ITEM_TO_FAVORITES, event));
+  public onAddFavoriteItem(payload: { item: IFavoriteCity, list: IFavoriteCity [] }): void {
+    this.store$.dispatch(setActionParams(ADD_ITEM_TO_FAVORITES, payload));
   }
 
-  public onRemoveFavoriteItem(event: IFavoriteCity []): void {
-    this.store$.dispatch(setActionParams(REMOVE_ITEM_FROM_FAVORITES, event));
+  public onRemoveFavoriteItem(payload: { item: IFavoriteCity, list: IFavoriteCity [] }): void {
+    this.store$.dispatch(setActionParams(REMOVE_ITEM_FROM_FAVORITES, payload));
   }
 }

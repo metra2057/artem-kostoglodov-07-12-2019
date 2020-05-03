@@ -32,18 +32,29 @@ export class FavoritesListEffects {
   public addFavoritesListItem$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(ADD_ITEM_TO_FAVORITES),
-      mergeMap((action: { payload: IFavoriteCity [] }) =>
-        this.localStorageService.setItem('w_favorites', action.payload)
+      mergeMap((action: { payload: { item: IFavoriteCity, list: IFavoriteCity [] } }) => {
+        const itemToAdd = action.payload.item;
+        const list = Object.assign([], action.payload.list);
+        list.push(itemToAdd);
+
+        return this.localStorageService.setItem('w_favorites', list)
           .pipe(
-            map((payload: IFavoriteCity []) => setActionParams(ADD_ITEM_TO_FAVORITES_SUCCESS, payload)),
-          ))));
+            map((payload: IFavoriteCity []) => setActionParams(ADD_ITEM_TO_FAVORITES_SUCCESS, payload))
+          );
+      })));
 
   public removeFavoritesListItem$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(REMOVE_ITEM_FROM_FAVORITES),
-      mergeMap((action: { payload: IFavoriteCity [] }) =>
-        this.localStorageService.setItem('w_favorites', action.payload)
+      mergeMap((action: { payload: { item: IFavoriteCity, list: IFavoriteCity [] } }) => {
+        const itemToAdd = action.payload.item;
+        const list = Object.assign([], action.payload.list).filter(item => {
+          return item.Key !== itemToAdd.Key && item.LocalizedName && itemToAdd.LocalizedName;
+        });
+
+        return this.localStorageService.setItem('w_favorites', list)
           .pipe(
             map(() => setActionParams(REMOVE_ITEM_FROM_FAVORITES_SUCCESS, action.payload))
-          ))));
+          );
+      })));
 }
