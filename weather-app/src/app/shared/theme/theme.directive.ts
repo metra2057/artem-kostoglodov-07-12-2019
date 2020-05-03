@@ -9,42 +9,42 @@ import { Theme } from './symbols';
 })
 export class ThemeDirective implements OnInit, OnDestroy {
 
-  private _destroy$ = new Subject();
+  private destroy$ = new Subject();
 
   constructor(
-    private _elementRef: ElementRef,
-    private _themeService: ThemeService
+    private elementRef: ElementRef,
+    private themeService: ThemeService
   ) {}
 
-  ngOnInit() {
-    const active = this._themeService.getActiveTheme();
+  ngOnInit(): void {
+    const active = this.themeService.getActiveTheme();
     if (active) {
       this.updateTheme(active);
     }
 
-    this._themeService.themeChange
-      .pipe(takeUntil(this._destroy$))
+    this.themeService.themeChange
+      .pipe(takeUntil(this.destroy$))
       .subscribe((theme: Theme) => this.updateTheme(theme));
   }
 
-  ngOnDestroy() {
-    this._destroy$.next();
-    this._destroy$.complete();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  updateTheme(theme: Theme) {
+  public updateTheme(theme: Theme): void {
     // project properties onto the element
     for (const key in theme.properties) {
-      this._elementRef.nativeElement.style.setProperty(key, theme.properties[key]);
+      this.elementRef.nativeElement.style.setProperty(key, theme.properties[key]);
     }
 
     // remove old theme
-    for (const name of this._themeService.theme) {
-      this._elementRef.nativeElement.classList.remove(`${name}-theme`);
+    for (const name of this.themeService.theme) {
+      this.elementRef.nativeElement.classList.remove(`${name}-theme`);
     }
 
     // alias element with theme name
-    this._elementRef.nativeElement.classList.add(`${theme.name}-theme`);
+    this.elementRef.nativeElement.classList.add(`${theme.name}-theme`);
   }
 
 }

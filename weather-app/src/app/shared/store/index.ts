@@ -20,3 +20,5 @@ export const reducers: ActionReducerMap<IState> = {
 export const metaReducers: MetaReducer<IState>[] = !environment.production ? [] : [];
 
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<IState>>('root reducers');
+
+export const setActionParams = (type: string, payload?: any): { type, payload } => ({type, payload});

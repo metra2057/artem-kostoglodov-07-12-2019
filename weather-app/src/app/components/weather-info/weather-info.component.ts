@@ -15,7 +15,7 @@ export interface IItemClickEvent {
   styleUrls: ['./weather-info.component.scss']
 })
 export class WeatherInfoComponent implements OnInit, OnChanges {
-  @Input() cityData: ICity;
+  @Input()  cityData: ICity;
   @Input() weatherData: IWeatherData;
   @Input() favoritesList: IFavoriteCity [] = [];
   @Output() emitAddFavoritesItem: EventEmitter<IFavoriteCity []> = new EventEmitter<IFavoriteCity []>();
@@ -32,14 +32,15 @@ export class WeatherInfoComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const isValid = this.checkFavoritesFormat(this.favoritesList);
-    if (isValid) {
+
+    if (this.cityData && isValid && this.favoritesList.length) {
       this.favorites = this.favoritesList;
       this.isFavorite = !!this.favorites.find((item: any) => item.Key === this.cityData.Key);
     }
   }
 
-  ngOnChanges(event): void {
-    if (event.cityData) {
+  ngOnChanges(): void {
+    if (this.cityData && this.favorites.length) {
       this.favorites = this.favoritesList;
       this.isFavorite = !!this.favorites.find((item: any) => item.Key === this.cityData.Key);
     }

@@ -1,21 +1,7 @@
-import {Action} from '@ngrx/store';
-import {ICity} from '../../interfaces/city.interface';
+import { createAction, props } from '@ngrx/store';
+import { ICity } from '../../interfaces/city.interface';
+import { GET_SEARCH_DATA, GET_SEARCH_DATA_SUCCESS } from '../actions-types/actions-types';
 
-export const GET_SEARCH_DATA = 'GET_SEARCH_DATA';
-export const GET_SEARCH_DATA_SUCCESS = 'GET_SEARCH_DATA_SUCCESS';
+export const getSearchData = createAction(GET_SEARCH_DATA, props<{ payload: { q: string } }>());
+export const getSearchDataSuccess = createAction(GET_SEARCH_DATA_SUCCESS, props<{ payload: ICity [] }>());
 
-export class GetSearchDataAction implements Action {
-  readonly type = GET_SEARCH_DATA;
-
-  constructor(public payload: { q: string; }) {
-  }
-}
-
-export class GetSearchDataSuccessAction implements Action {
-  readonly type = GET_SEARCH_DATA_SUCCESS;
-
-  constructor(public payload: ICity[]) {
-  }
-}
-
-export type SearchActions = GetSearchDataAction | GetSearchDataSuccessAction;

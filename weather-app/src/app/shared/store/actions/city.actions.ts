@@ -1,38 +1,14 @@
-import {Action} from '@ngrx/store';
-import {ICity} from '../../interfaces/city.interface';
-import {IWeatherData} from '../../interfaces/weather-data.interface';
+import { createAction, props } from '@ngrx/store';
+import { ICity } from '../../interfaces/city.interface';
+import { IWeatherData } from '../../interfaces/weather-data.interface';
+import {
+  GET_CITY_DATA,
+  GET_CITY_DATA_SUCCESS,
+  GET_CITY_WEATHER_DATA,
+  GET_CITY_WEATHER_DATA_SUCCESS
+} from '../actions-types/actions-types';
 
-export const GET_CITY_DATA = 'GET_CITY_DATA';
-export const GET_CITY_DATA_SUCCESS = 'GET_CITY_DATA_SUCCESS';
-export const GET_CITY_WEATHER_DATA = 'GET_CITY_WEATHER_DATA';
-export const GET_CITY_WEATHER_DATA_SUCCESS = 'GET_CITY_WEATHER_DATA_SUCCESS';
-
-export class GetCityDataAction implements Action {
-  readonly type = GET_CITY_DATA;
-
-  constructor(public payload: { q: string; }) {
-  }
-}
-
-export class GetCityDataActionSuccess implements Action {
-  readonly type = GET_CITY_DATA_SUCCESS;
-
-  constructor(public payload: ICity[]) {
-  }
-}
-
-export class GetCityWeatherDataAction implements Action {
-  readonly type = GET_CITY_WEATHER_DATA;
-
-  constructor(public payload: { name: string; }) {
-  }
-}
-
-export class GetCityWeatherDataSuccessAction implements Action {
-  readonly type = GET_CITY_WEATHER_DATA_SUCCESS;
-
-  constructor(public payload: IWeatherData) {
-  }
-}
-
-export type CityDataActions = GetCityDataAction | GetCityDataActionSuccess | GetCityWeatherDataAction | GetCityWeatherDataSuccessAction;
+export const getCityDataAction = createAction(GET_CITY_DATA, props<{ payload: { q: string } }>());
+export const getCityDataSuccessAction = createAction(GET_CITY_DATA_SUCCESS, props<{ payload: ICity [] }>());
+export const getCityWeatherDataAction = createAction(GET_CITY_WEATHER_DATA, props<{ payload: { name: string } }>());
+export const getCityWeatherDataSuccessAction = createAction(GET_CITY_WEATHER_DATA_SUCCESS, props<{ payload: IWeatherData }>());

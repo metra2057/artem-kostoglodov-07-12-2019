@@ -1,28 +1,21 @@
-import {GET_SEARCH_DATA, GET_SEARCH_DATA_SUCCESS, SearchActions} from '../actions/search.actions';
-import {ICity} from '../../interfaces/city.interface';
+import { ICity } from '../../interfaces/city.interface';
+import { createReducer, on } from '@ngrx/store';
+import * as SearchActions from '../actions/search.actions';
 
 export const searchKey = 'search';
 
 export interface ISearchState {
-  searchResult: ICity[];
+  searchResult: ICity [];
 }
 
 const initialState: ISearchState = {
   searchResult: []
 }
 
-export const searchReducer = (state = initialState, action: SearchActions) => {
-  switch (action.type) {
-    case GET_SEARCH_DATA:
-      return {
-        ...state
-      };
-    case GET_SEARCH_DATA_SUCCESS:
-      return {
-        ...state,
-        searchResult: action.payload
-      }
-    default:
-      return state;
-  }
-}
+export const searchReducer = createReducer(
+  initialState,
+  on(SearchActions.getSearchData, state =>
+    ({...state})),
+  on(SearchActions.getSearchDataSuccess, (state, {payload}) =>
+    ({...state, searchResult: payload}))
+);

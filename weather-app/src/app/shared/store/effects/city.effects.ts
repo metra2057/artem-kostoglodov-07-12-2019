@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Action} from '@ngrx/store';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Observable} from 'rxjs';
-import {map, mergeMap} from 'rxjs/operators';
-import {MainApiService} from '../../../services/main-api.service';
+import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+import { MainApiService } from '../../../services/main-api.service';
 import {
   GET_CITY_DATA,
   GET_CITY_DATA_SUCCESS,
   GET_CITY_WEATHER_DATA,
-  GET_CITY_WEATHER_DATA_SUCCESS,
-  GetCityDataAction,
-  GetCityWeatherDataAction
-} from '../actions/city.actions';
+  GET_CITY_WEATHER_DATA_SUCCESS
+} from '../actions-types/actions-types';
+import { setActionParams } from '../index';
+import { ICity } from '../../interfaces/city.interface';
+import { IWeatherData } from '../../interfaces/weather-data.interface';
 
 @Injectable()
 export class CityEffects {
@@ -21,17 +22,17 @@ export class CityEffects {
   ) {
   }
 
-  @Effect() getCityData$: Observable<Action> = this.actions$.pipe(
+  public getCityData$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(GET_CITY_DATA),
-    mergeMap((action: GetCityDataAction) => this.mainApiService.getCities(action.payload).pipe(
-      map(payload => ({type: GET_CITY_DATA_SUCCESS, payload}))
-    ))
-  );
+    mergeMap((action: { payload: { q: string } }) =>
+      this.mainApiService.getCities(action.payload).pipe(
+        map((payload: ICity) => setActionParams(GET_CITY_DATA_SUCCESS, payload))
+      ))));
 
-  @Effect() getCityWeatherData$: Observable<Action> = this.actions$.pipe(
+  public getCityWeatherData$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(GET_CITY_WEATHER_DATA),
-    mergeMap((action: GetCityWeatherDataAction) => this.mainApiService.getFullWeatherByLocationKey(action.payload).pipe(
-      map(payload => ({type: GET_CITY_WEATHER_DATA_SUCCESS, payload}))
-    ))
-  );
+    mergeMap((action: { payload: { name: string } }) =>
+      this.mainApiService.getFullWeatherByLocationKey(action.payload).pipe(
+        map((payload: IWeatherData) => setActionParams(GET_CITY_WEATHER_DATA_SUCCESS, payload))
+      ))));
 }

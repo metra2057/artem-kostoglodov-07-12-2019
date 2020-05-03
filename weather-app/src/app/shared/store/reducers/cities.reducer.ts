@@ -1,60 +1,28 @@
+import { createReducer, on } from '@ngrx/store';
+import * as CityActions from '../actions/city.actions';
+import { IWeatherData } from '../../interfaces/weather-data.interface';
 import { ICity } from '../../interfaces/city.interface';
-import {
-  CityDataActions,
-  GET_CITY_DATA,
-  GET_CITY_DATA_SUCCESS,
-  GET_CITY_WEATHER_DATA,
-  GET_CITY_WEATHER_DATA_SUCCESS
-} from '../actions/city.actions';
-import { MCity } from '../../models/city.model';
 
 export const citiesKey = 'city';
 
 export interface ICitiesState {
-  cityData: ICity;
-  weatherData: any;
+  cityData: ICity | null;
+  weatherData: IWeatherData | null;
 }
 
 const initialState: ICitiesState = {
-  cityData: new MCity(
-    0,
-    '',
-    '',
-    0,
-    '',
-    {
-      ID: '',
-      LocalizedName: '',
-    },
-    {
-      ID: '',
-      LocalizedName: ''
-    }
-  ),
-  weatherData: {}
+  cityData: null,
+  weatherData: null
 }
 
-export const citiesReducer = (state = initialState, action: CityDataActions) => {
-  switch (action.type) {
-    case GET_CITY_DATA:
-      return {
-        ...state,
-      };
-    case GET_CITY_DATA_SUCCESS:
-      return {
-        ...state,
-        cityData: action.payload[0]
-      };
-    case GET_CITY_WEATHER_DATA:
-      return {
-        ...state,
-      };
-    case GET_CITY_WEATHER_DATA_SUCCESS:
-      return {
-        ...state,
-        weatherData: action.payload
-      };
-    default:
-      return state;
-  }
-}
+export const citiesReducer = createReducer(
+  initialState,
+  on(CityActions.getCityDataAction, state =>
+    ({...state})),
+  on(CityActions.getCityDataSuccessAction, (state, {payload}) =>
+    ({...state, cityData: payload[0]})),
+  on(CityActions.getCityWeatherDataAction, state =>
+    ({...state})),
+  on(CityActions.getCityWeatherDataSuccessAction, (state, {payload}) =>
+    ({...state, weatherData: payload})),
+);
